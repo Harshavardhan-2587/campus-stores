@@ -1,6 +1,6 @@
 :root {
   color-scheme: light dark;
-  background: light-dark(#f0f2f1, #191e21);
+  background: light-dark(#eef1f0, #171c1f);
 }
 body {
   margin: 0;
@@ -25,29 +25,40 @@ body > main {
 
 #campus-stores {
   color-scheme: light dark;
-  --ink: light-dark(#202c35, #ecf0f0);
-  --quiet: light-dark(#526370, #b9c5cb);
-  --paper: light-dark(#fff, #232a30);
-  --desk: light-dark(#f3f5f5, #1d2328);
-  --nav: light-dark(#eaf0f1, #29333b);
+  --ink: light-dark(#1d2a33, #ecf0f0);
+  --quiet: light-dark(#4f606c, #b9c5cb);
+  --paper: light-dark(#fff, #222a30);
+  --desk: light-dark(#f4f6f6, #1c2227);
+  --nav: light-dark(#eaf0f1, #28323a);
   --sel: light-dark(#233e4c, #c5dce4);
   --inv: light-dark(#fff, #172b34);
-  --line: light-dark(#d2dcdf, #475158);
+  --line: light-dark(#d4dde0, #455058);
   --memo: light-dark(#fff3d8, #3d3426);
   --memotxt: light-dark(#65491e, #ead4a5);
   --mark: light-dark(#bd502f, #f2a585);
   --ok: light-dark(#e3f1e8, #2d4838);
   --oktxt: light-dark(#25523d, #bedac8);
+  --info: light-dark(#e3edf2, #26363f);
+  --infotxt: light-dark(#233e4c, #c5dce4);
+  --warn: light-dark(#fbefcf, #463a1f);
+  --warntxt: light-dark(#6d4b0b, #f0d48f);
+  --late: light-dark(#fbe3da, #4c2b22);
+  --latetxt: light-dark(#93361a, #f6bea8);
   background: var(--paper);
   color: var(--ink);
   font:
-    14px/1.48 "Inter",
-    "Arial",
+    14px/1.5 "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
     sans-serif;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   container-type: inline-size;
+  box-shadow: 0 1px 2px light-dark(#1d2a3314, #0006);
 }
 #campus-stores * {
   box-sizing: border-box;
@@ -63,14 +74,14 @@ body > main {
 }
 #campus-stores h1 {
   font:
-    600 clamp(24px, 4cqw, 33px)/1.13 "Archivo",
+    650 clamp(24px, 4cqw, 33px)/1.13 "Archivo",
     system-ui,
     sans-serif;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
 }
 #campus-stores h2 {
   font-size: 20px;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
 #campus-stores h3 {
   font-size: 15px;
@@ -82,6 +93,16 @@ body > main {
 #campus-stores small {
   font-size: 12px;
 }
+#campus-stores .sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Exam strip and brief */
 #campus-stores .examstrip {
   display: flex;
   justify-content: space-between;
@@ -104,11 +125,13 @@ body > main {
 }
 #campus-stores .briefcopy {
   color: var(--ink);
-  max-width: 79ch;
+  max-width: 72ch;
   padding: 12px 0 5px;
   display: grid;
   gap: 8px;
 }
+
+/* Masthead and shift memo */
 #campus-stores .mast,
 #campus-stores .brandblock,
 #campus-stores .shift,
@@ -120,49 +143,96 @@ body > main {
   gap: 10px;
 }
 #campus-stores .mast {
-  padding: 17px 20px;
+  padding: 18px 20px;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+#campus-stores .brandblock {
+  gap: 12px;
 }
 #campus-stores .brandmark {
   background: var(--mark);
   color: var(--inv);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
+  border-radius: 11px;
 }
 #campus-stores .brandmark svg {
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
 }
 #campus-stores .clock {
   display: grid;
   text-align: right;
+  background: var(--desk);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 12px;
 }
 #campus-stores .clock strong {
+  font-size: 15px;
   font-variant-numeric: tabular-nums;
 }
 #campus-stores .shift {
   background: var(--memo);
   color: var(--memotxt);
-  padding: 12px 19px;
+  padding: 14px 20px;
   justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px 20px;
   border-block: 1px solid var(--line);
 }
-#campus-stores .shift div {
-  max-width: 67ch;
+#campus-stores .shift > div {
+  max-width: 70ch;
 }
-#campus-stores .shift b {
-  font-size: 13px;
+#campus-stores .shift b[data-shift-title] {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 2px;
 }
 #campus-stores .shift button {
-  background: transparent;
+  background: var(--memotxt);
   border-color: var(--memotxt);
-  color: var(--memotxt);
+  color: var(--memo);
   flex-shrink: 0;
 }
+#campus-stores .steps {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+#campus-stores .steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 10px;
+  border: 1px solid color-mix(in srgb, var(--memotxt) 35%, transparent);
+  border-radius: 999px;
+  font-size: 12px;
+}
+#campus-stores .steps li small {
+  color: inherit;
+  font-size: 11px;
+  opacity: 0.8;
+}
+#campus-stores .steps li.done {
+  opacity: 0.65;
+}
+#campus-stores .steps li.done b::before {
+  content: "✓ ";
+}
+#campus-stores .steps li[aria-current="step"] {
+  background: var(--memotxt);
+  border-color: var(--memotxt);
+  color: var(--memo);
+}
+
+/* Controls */
 #campus-stores button,
 #campus-stores select,
 #campus-stores input,
@@ -170,10 +240,10 @@ body > main {
   font: inherit;
   color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--paper);
   min-width: 0;
-  padding: 7px 9px;
+  padding: 7px 10px;
 }
 #campus-stores button {
   font-size: 13px;
@@ -183,19 +253,33 @@ body > main {
 #campus-stores button:hover {
   border-color: var(--sel);
 }
-#campus-stores .primary {
+#campus-stores button.primary {
   background: var(--sel);
   color: var(--inv);
   border-color: var(--sel);
 }
-#campus-stores :is(button, input, textarea, select, summary):focus-visible {
+#campus-stores button.primary:hover {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sel) 25%, transparent);
+}
+#campus-stores button.ghost {
+  background: transparent;
+}
+#campus-stores input::placeholder,
+#campus-stores textarea::placeholder {
+  color: var(--quiet);
+  opacity: 0.8;
+}
+#campus-stores :is(button, input, textarea, select, summary):focus-visible,
+#campus-stores .alert:focus {
   outline: 3px solid var(--mark);
   outline-offset: 2px;
 }
+
+/* Layout */
 #campus-stores .shell {
   display: grid;
-  grid-template-columns: 155px minmax(0, 1fr);
-  min-height: 315px;
+  grid-template-columns: 180px minmax(0, 1fr);
+  min-height: 360px;
 }
 #campus-stores nav {
   background: var(--nav);
@@ -213,18 +297,41 @@ body > main {
   border: 1px solid transparent;
   background: transparent;
   font-weight: 500;
+  white-space: nowrap;
 }
 #campus-stores nav button[aria-pressed="true"] {
   background: var(--sel);
   color: var(--inv);
+  font-weight: 650;
 }
 #campus-stores nav svg {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
+#campus-stores nav .count {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--info);
+  color: var(--infotxt);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+#campus-stores nav .count.late,
+#campus-stores nav button[aria-pressed="true"] .count.late {
+  background: var(--late);
+  color: var(--latetxt);
+}
+#campus-stores nav button[aria-pressed="true"] .count {
+  background: var(--inv);
+  color: var(--sel);
+}
 #campus-stores .page {
-  padding: 17px 17px 20px;
+  padding: 18px 20px 22px;
   min-width: 0;
 }
 #campus-stores .sectionhead,
@@ -239,39 +346,181 @@ body > main {
   margin-top: 2px;
   display: block;
 }
+
+/* Lists and records */
 #campus-stores .row {
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px;
-  padding: 9px 0;
+  gap: 8px 12px;
+  padding: 10px 0;
 }
 #campus-stores .row small,
 #campus-stores label span {
   display: block;
 }
+#campus-stores .rowact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 #campus-stores .tag {
   background: var(--desk);
   color: var(--quiet);
   font-size: 12px;
-  padding: 3px 7px;
-  border-radius: 5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
   display: inline-block;
+  white-space: nowrap;
 }
-#campus-stores .good {
+#campus-stores .tag.good {
   background: var(--ok);
   color: var(--oktxt);
 }
+#campus-stores .tag.info {
+  background: var(--info);
+  color: var(--infotxt);
+}
+#campus-stores .tag.warn {
+  background: var(--warn);
+  color: var(--warntxt);
+}
+#campus-stores .tag.late {
+  background: var(--late);
+  color: var(--latetxt);
+}
 #campus-stores .record {
   margin-top: 14px;
-  padding: 12px 13px;
+  padding: 12px 14px;
   background: var(--desk);
   border-left: 3px solid var(--sel);
+  border-radius: 0 10px 10px 0;
+}
+#campus-stores .record.handover {
+  border-left-color: var(--mark);
+}
+#campus-stores .record.auto {
+  border-left-color: var(--warntxt);
 }
 #campus-stores .record p {
   margin-top: 5px;
 }
+#campus-stores .kit {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 10px;
+  display: grid;
+  gap: 6px;
+}
+#campus-stores .kit li {
+  display: grid;
+  padding: 7px 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 8px;
+}
+#campus-stores .kit li.out {
+  border-left-color: var(--infotxt);
+}
+#campus-stores .kit li.back {
+  border-left-color: var(--oktxt);
+}
+
+/* Loan slips */
+#campus-stores .slip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px 12px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--infotxt);
+  border-radius: 10px;
+}
+#campus-stores .slip.warn {
+  border-left-color: var(--warntxt);
+}
+#campus-stores .slip.late {
+  border-left-color: var(--latetxt);
+  background: color-mix(in srgb, var(--late) 35%, var(--paper));
+}
+#campus-stores .slip.done {
+  border-left-color: var(--line);
+  background: var(--desk);
+}
+#campus-stores .sliptitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin-bottom: 2px;
+}
+#campus-stores .slipmain small {
+  display: block;
+}
+#campus-stores .slipnote {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+#campus-stores .checkin {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+#campus-stores .checkpane,
+#campus-stores .panel {
+  background: var(--desk);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+#campus-stores .panel {
+  margin: 4px 0 14px;
+}
+#campus-stores .checkpane h3,
+#campus-stores .panel h3 {
+  font-size: 14px;
+}
+#campus-stores .checkfoot {
+  grid-column: 1 / -1;
+}
+#campus-stores .hint {
+  color: var(--quiet);
+  font-size: 12px;
+  margin-top: 2px;
+}
+#campus-stores .alert {
+  margin: 4px 0 10px;
+  padding: 8px 10px;
+  background: var(--late);
+  color: var(--latetxt);
+  border-left: 3px solid var(--latetxt);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+#campus-stores .empty {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  color: var(--quiet);
+}
+
+/* Forms */
 #campus-stores .buttons {
   flex-wrap: wrap;
   margin: 10px 0;
@@ -309,10 +558,12 @@ body > main {
 #campus-stores textarea {
   resize: vertical;
 }
+
+/* Status bar */
 #campus-stores .statusbar {
   background: var(--desk);
   border-top: 1px solid var(--line);
-  padding: 8px 16px;
+  padding: 9px 16px;
   color: var(--quiet);
   font-size: 12px;
 }
@@ -323,23 +574,59 @@ body > main {
   font-size: 12px;
   background: transparent;
 }
+#campus-stores .statusbar button.armed {
+  background: var(--late);
+  color: var(--latetxt);
+  border-color: var(--latetxt);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #campus-stores button {
+    transition:
+      background-color 0.15s,
+      border-color 0.15s,
+      box-shadow 0.15s;
+  }
+  #campus-stores .checkin,
+  #campus-stores .alert {
+    animation: cs-reveal 0.18s ease-out;
+  }
+}
+@keyframes cs-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @container (max-width:650px) {
   #campus-stores .shell {
     grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
   }
   #campus-stores nav {
     border-right: 0;
     border-bottom: 1px solid var(--line);
     flex-direction: row;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    scrollbar-width: none;
     padding: 7px;
   }
   #campus-stores nav button {
-    gap: 4px;
-    padding: 5px 7px;
+    flex: 0 0 auto;
+    gap: 5px;
+    padding: 6px 9px;
+  }
+  #campus-stores nav .count {
+    margin-left: 2px;
   }
   #campus-stores .shift {
     flex-wrap: wrap;
+    align-items: stretch;
   }
   #campus-stores .page {
     padding: 14px 12px;
@@ -349,7 +636,10 @@ body > main {
   }
   #campus-stores .examstrip,
   #campus-stores .shift {
-    padding: 9px 12px;
+    padding: 10px 12px;
+  }
+  #campus-stores .checkin {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @container (max-width:420px) {
@@ -359,13 +649,23 @@ body > main {
   #campus-stores .brandmark {
     display: none;
   }
-  #campus-stores .row {
-    gap: 5px;
+  #campus-stores .row,
+  #campus-stores .slip {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  #campus-stores .rowact {
+    justify-content: flex-start;
+  }
+  #campus-stores .slipact button,
+  #campus-stores .shift button {
+    width: 100%;
   }
 }
 @media (pointer: coarse) {
   #campus-stores button,
-  #campus-stores select {
+  #campus-stores select,
+  #campus-stores input {
     min-height: 44px;
   }
 }
